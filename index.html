@@ -1662,7 +1662,9 @@
             }
 
             localStorage.setItem('rachamuffin_currentUser', JSON.stringify(user));
-            currentUser = user;
+            // Agregar el username al objeto del usuario para poder encontrarlo después
+            user.username = username;
+            currentUser = JSON.parse(JSON.stringify(user)); // Crear copia para evitar problemas de referencia
             showUserConfig();
             showNotification(`¡Bienvenido de vuelta, ${username}!`, 'success');
         }
@@ -1880,7 +1882,11 @@
             currentUser.effect = document.getElementById('effectSelect').value;
 
             const users = JSON.parse(localStorage.getItem('rachamuffin_users') || '{}');
-            const username = Object.keys(users).find(key => users[key] === currentUser || users[key].password === currentUser.password);
+            // Buscar usuario por avatarName y tipo de racha para mayor precisión
+            const username = Object.keys(users).find(key => 
+                users[key].avatarName === currentUser.avatarName && 
+                users[key].streakType === currentUser.streakType
+            );
             
             if (username) {
                 users[username] = currentUser;
