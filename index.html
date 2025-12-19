@@ -366,7 +366,8 @@
             letter-spacing: 1px;
             animation: buttonSlideIn 1s ease-out 0.9s both;
             will-change: transform, box-shadow;
-            touch-action: manipulation; /* Mejora en dispositivos táctiles */
+            touch-action: manipulation;
+            margin: 0.5rem 0;
         }
 
         @keyframes buttonSlideIn {
@@ -543,7 +544,7 @@
             border-radius: 25px;
             border: 3px solid;
             border-image: linear-gradient(45deg, var(--primary), var(--gold), var(--purple), var(--cyan)) 1;
-            width: min(95vw, 600px);
+            width: min(95vw, 800px);
             max-height: min(90vh, 80vh);
             overflow-y: auto;
             position: relative;
@@ -650,6 +651,8 @@
             font-size: clamp(0.9rem, 3vw, 1rem);
             will-change: transform, box-shadow;
             touch-action: manipulation;
+            width: auto;
+            min-width: 120px;
         }
 
         .button-group .secondary {
@@ -709,7 +712,7 @@
             text-shadow: 0 0 10px currentColor;
         }
 
-        /* Avatar Customization mejorada */
+        /* Avatar Customization mejorada con personalización avanzada */
         .avatar-customization {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -723,11 +726,12 @@
         }
 
         .avatar-preview img {
-            width: clamp(100px, 30vw, 120px);
-            height: clamp(100px, 30vw, 120px);
+            width: clamp(120px, 35vw, 140px);
+            height: clamp(120px, 35vw, 140px);
             border-radius: 15px;
             border: 3px solid var(--primary);
             box-shadow: 0 0 20px rgba(255, 71, 87, 0.4);
+            object-fit: cover;
         }
 
         .avatar-options {
@@ -763,6 +767,64 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
+        /* Estilos para la personalización avanzada */
+        .advanced-customization {
+            background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .advanced-customization h4 {
+            color: var(--cyan);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .customization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .custom-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .custom-group label {
+            color: var(--cyan);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .custom-group select {
+            background: rgba(6, 182, 212, 0.1);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 10px;
+            padding: 0.6rem;
+            color: var(--light);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .custom-group select:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+            background: rgba(6, 182, 212, 0.15);
+        }
+
+        .custom-group select option {
+            background: var(--dark-light);
+            color: var(--light);
+        }
+
         #customStreakInput {
             margin: 1rem 0;
         }
@@ -795,13 +857,17 @@
             }
             
             .modal-content {
-                width: min(90vw, 700px);
+                width: min(90vw, 900px);
                 margin: 3% auto;
             }
             
             .avatar-customization {
                 grid-template-columns: 1fr;
                 text-align: center;
+            }
+
+            .customization-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -845,6 +911,10 @@
                 width: 80%;
                 max-width: 250px;
             }
+
+            .customization-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Móviles pequeños */
@@ -864,6 +934,10 @@
                 margin: 2% auto;
                 padding: 1rem;
             }
+
+            .advanced-customization {
+                padding: 1rem;
+            }
         }
 
         /* Modo de alto contraste para accesibilidad */
@@ -881,6 +955,10 @@
 
             button {
                 border: 2px solid var(--primary);
+            }
+
+            .custom-group select {
+                border: 2px solid var(--cyan);
             }
         }
 
@@ -990,29 +1068,138 @@
                         <label for="avatarNameInput">Nombre del Avatar:</label>
                         <input type="text" id="avatarNameInput" placeholder="Nombre" aria-label="Nombre del avatar">
                         
-                        <label for="avatarStyleSelect">Estilo:</label>
+                        <label for="avatarStyleSelect">Estilo Base:</label>
                         <select id="avatarStyleSelect" aria-label="Estilo del avatar">
                             <option value="adventurer">Aventurero</option>
                             <option value="avataaars">Avataaars</option>
-                            <option value="big-ears">Orejas Grandes</option>
-                            <option value="big-smile">Gran Sonrisa</option>
-                            <option value="bottts">Bots</option>
-                            <option value="croodles">Croodles</option>
-                            <option value="fun-emoji">Emoji Divertido</option>
-                            <option value="icons">Iconos</option>
-                            <option value="identicon">Identicon</option>
-                            <option value="initials">Iniciales</option>
-                            <option value="micah">Micah</option>
-                            <option value="miniavs">Mini Avs</option>
                             <option value="open-peeps">Personas Abiertas</option>
                             <option value="personas">Personas</option>
-                            <option value="pixel-art">Pixel Art</option>
-                            <option value="rings">Anillos</option>
-                            <option value="shapes">Formas</option>
-                            <option value="thumbs">Pulgar</option>
+                            <option value="micah">Micah</option>
+                            <option value="croodles">Croodles</option>
+                            <option value="miniavs">Mini Avs</option>
                         </select>
+
+                        <!-- Sección de Personalización Avanzada -->
+                        <div class="advanced-customization">
+                            <h4>🎨 Personalización Avanzada</h4>
+                            
+                            <div class="customization-grid">
+                                <div class="custom-group">
+                                    <label for="hairColorSelect">Color de Cabello:</label>
+                                    <select id="hairColorSelect" aria-label="Color de cabello">
+                                        <option value="">Por Defecto</option>
+                                        <option value="black">Negro</option>
+                                        <option value="brown">Castaño</option>
+                                        <option value="blonde">Rubio</option>
+                                        <option value="red">Pelirrojo</option>
+                                        <option value="gray">Gris</option>
+                                        <option value="blue">Azul</option>
+                                        <option value="green">Verde</option>
+                                        <option value="purple">Morado</option>
+                                        <option value="pink">Rosa</option>
+                                    </select>
+                                </div>
+
+                                <div class="custom-group">
+                                    <label for="eyeColorSelect">Color de Ojos:</label>
+                                    <select id="eyeColorSelect" aria-label="Color de ojos">
+                                        <option value="">Por Defecto</option>
+                                        <option value="brown">Marrones</option>
+                                        <option value="blue">Azules</option>
+                                        <option value="green">Verdes</option>
+                                        <option value="gray">Grises</option>
+                                        <option value="amber">Ámbar</option>
+                                    </select>
+                                </div>
+
+                                <div class="custom-group">
+                                    <label for="accessorySelect">Accesorios:</label>
+                                    <select id="accessorySelect" aria-label="Accesorios">
+                                        <option value="">Ninguno</option>
+                                        <option value="glasses">Gafas</option>
+                                        <option value="sunglasses">Gafas de Sol</option>
+                                        <option value="mustache">Bigote</option>
+                                        <option value="beard">Barba</option>
+                                        <option value="earring">Aretes</option>
+                                        <option value="hat">Sombrero</option>
+                                        <option value="mask">Máscara</option>
+                                    </select>
+                                </div>
+
+                                <div class="custom-group">
+                                    <label for="clothingSelect">Ropa:</label>
+                                    <select id="clothingSelect" aria-label="Estilo de ropa">
+                                        <option value="">Por Defecto</option>
+                                        <option value="blazer">Blazer</option>
+                                        <option value="hoodie">Sudadera</option>
+                                        <option value="sweater">Suéter</option>
+                                        <option value="collared">Camisa</option>
+                                        <option value="tank-top">Franela</option>
+                                        <option value="dress-shirt">Camisa Formal</option>
+                                    </select>
+                                </div>
+
+                                <div class="custom-group">
+                                    <label for="backgroundSelect">Fondo:</label>
+                                    <select id="backgroundSelect" aria-label="Color de fondo">
+                                        <option value="">Transparente</option>
+                                        <option value="b6e3f4">Azul Cielo</option>
+                                        <option value="c0aede">Púrpura Suave</option>
+                                        <option value="ffd5dc">Rosa Pastel</option>
+                                        <option value="ffdfbf">Amarillo Suave</option>
+                                        <option value="d1d4f9">Lavanda</option>
+                                        <option value="d8d2db">Gris Suave</option>
+                                        <option value="e8dff7">Azul Muy Suave</option>
+                                    </select>
+                                </div>
+
+                                <div class="custom-group">
+                                    <label for="moodSelect">Expresión:</label>
+                                    <select id="moodSelect" aria-label="Expresión facial">
+                                        <option value="">Por Defecto</option>
+                                        <option value="default">Neutral</option>
+                                        <option value="happy">Feliz</option>
+                                        <option value="surprised">Sorprendido</option>
+                                        <option value="sad">Triste</option>
+                                        <option value="angry">Enojado</option>
+                                        <option value="confident">Confiado</option>
+                                        <option value="sleepy">Somnoliento</option>
+                                    </select>
+                                </div>
+
+                                <div class="custom-group">
+                                    <label for="petSelect">Compañero:</label>
+                                    <select id="petSelect" aria-label="Mascota o compañero">
+                                        <option value="">Ninguno</option>
+                                        <option value="cat">Gato</option>
+                                        <option value="dog">Perro</option>
+                                        <option value="rabbit">Conejo</option>
+                                        <option value="parrot">Loro</option>
+                                        <option value="fish">Pez</option>
+                                        <option value="hamster">Hámster</option>
+                                        <option value="turtle">Tortuga</option>
+                                    </select>
+                                </div>
+
+                                <div class="custom-group">
+                                    <label for="effectSelect">Efectos Especiales:</label>
+                                    <select id="effectSelect" aria-label="Efectos especiales">
+                                        <option value="">Ninguno</option>
+                                        <option value="sunset">Atardecer</option>
+                                        <option value="dawn">Amanecer</option>
+                                        <option value="cloudy">Nublado</option>
+                                        <option value="snow">Nevada</option>
+                                        <option value="rain">Lluvia</option>
+                                        <option value="fog">Niebla</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         
                         <button onclick="updateAvatarPreview()">🔄 Actualizar Preview</button>
+                        <button onclick="randomizeAvatar()">🎲 Avatar Aleatorio</button>
+                        <button onclick="saveAvatarPreset()">⭐ Guardar Preset</button>
+                        <button onclick="loadAvatarPreset()">📁 Cargar Preset</button>
                     </div>
                 </div>
 
@@ -1025,7 +1212,7 @@
     </div>
 
     <script>
-        // LÓGICA DE LA APP OPTIMIZADA
+        // LÓGICA DE LA APP OPTIMIZADA CON PERSONALIZACIÓN AVANZADA
         let streak = parseInt(localStorage.getItem('rachamuffin_streak')) || 0;
         let coins = parseInt(localStorage.getItem('rachamuffin_coins')) || 0;
         let lastCheck = localStorage.getItem('rachamuffin_lastCheck') || "";
@@ -1040,11 +1227,39 @@
         let avatarSeed = localStorage.getItem('rachamuffin_avatarSeed') || "Lucky";
         let lastAvatarUpdate = parseInt(localStorage.getItem('rachamuffin_lastAvatarUpdate')) || 0;
 
+        // Inicializar avatar inmediatamente
+        initializeAvatar();
+
         // Verificar racha rota al cargar la página
         checkStreakBreak();
 
         // Actualizar visual al cargar
         updateDisplay();
+
+        // Función para inicializar el avatar correctamente
+        function initializeAvatar() {
+            const seed = generateAvatarSeed(streak);
+            avatarSeed = seed;
+            
+            // Verificar si hay un usuario logueado con avatar personalizado
+            const savedUser = localStorage.getItem('rachamuffin_currentUser');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    if (user.avatarStyle && user.avatarSeed) {
+                        avatarEl.src = `https://api.dicebear.com/7.x/${user.avatarStyle}/svg?seed=${encodeURIComponent(user.avatarSeed)}`;
+                    } else {
+                        avatarEl.src = `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}`;
+                    }
+                } catch (e) {
+                    // Si hay error parseando, usar avatar por defecto
+                    avatarEl.src = `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}`;
+                }
+            } else {
+                // Avatar por defecto
+                avatarEl.src = `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}`;
+            }
+        }
 
         // Optimización: usar requestAnimationFrame para animaciones suaves
         function smoothUpdateDisplay() {
@@ -1409,7 +1624,16 @@
                 avatarSeed: 'Lucky',
                 avatarStyle: 'adventurer',
                 avatarName: username,
-                lastCheck: ''
+                lastCheck: '',
+                // Nuevas propiedades de personalización avanzada
+                hairColor: '',
+                eyeColor: '',
+                accessory: '',
+                clothing: '',
+                background: '',
+                mood: '',
+                pet: '',
+                effect: ''
             };
 
             localStorage.setItem('rachamuffin_users', JSON.stringify(users));
@@ -1463,17 +1687,153 @@
                 document.getElementById('customStreakText').value = currentUser.customStreak || '';
             }
 
+            // Cargar datos del avatar
             document.getElementById('avatarNameInput').value = currentUser.avatarName || 'Hero';
             document.getElementById('avatarStyleSelect').value = currentUser.avatarStyle || 'adventurer';
+            
+            // Cargar opciones de personalización avanzada
+            document.getElementById('hairColorSelect').value = currentUser.hairColor || '';
+            document.getElementById('eyeColorSelect').value = currentUser.eyeColor || '';
+            document.getElementById('accessorySelect').value = currentUser.accessory || '';
+            document.getElementById('clothingSelect').value = currentUser.clothing || '';
+            document.getElementById('backgroundSelect').value = currentUser.background || '';
+            document.getElementById('moodSelect').value = currentUser.mood || '';
+            document.getElementById('petSelect').value = currentUser.pet || '';
+            document.getElementById('effectSelect').value = currentUser.effect || '';
+            
             updateAvatarPreview();
         }
 
-        function updateAvatarPreview() {
+        function buildAvatarURL() {
             const name = document.getElementById('avatarNameInput').value || 'Hero';
             const style = document.getElementById('avatarStyleSelect').value || 'adventurer';
             
+            // Parámetros de personalización avanzada
+            const hairColor = document.getElementById('hairColorSelect').value;
+            const eyeColor = document.getElementById('eyeColorSelect').value;
+            const accessory = document.getElementById('accessorySelect').value;
+            const clothing = document.getElementById('clothingSelect').value;
+            const background = document.getElementById('backgroundSelect').value;
+            const mood = document.getElementById('moodSelect').value;
+            const pet = document.getElementById('petSelect').value;
+            const effect = document.getElementById('effectSelect').value;
+            
+            let url = `https://api.dicebear.com/7.x/${style}/svg?seed=${encodeURIComponent(name)}`;
+            
+            // Agregar parámetros si están definidos
+            const params = [];
+            if (hairColor) params.push(`hairColor=${hairColor}`);
+            if (eyeColor) params.push(`eyeColor=${eyeColor}`);
+            if (accessory) params.push(`accessories=${accessory}`);
+            if (clothing) params.push(`clothing=${clothing}`);
+            if (background) params.push(`backgroundColor=${background}`);
+            if (mood) params.push(`mouth=${mood}`);
+            if (pet) params.push(`backgroundType=particle&backgroundColor=${background}`);
+            if (effect) params.push(`backgroundType=gradient&backgroundColor=${background}`);
+            
+            if (params.length > 0) {
+                url += '&' + params.join('&');
+            }
+            
+            return url;
+        }
+
+        function updateAvatarPreview() {
             const previewImg = document.getElementById('customAvatarPreview');
-            previewImg.src = `https://api.dicebear.com/7.x/${style}/svg?seed=${encodeURIComponent(name)}`;
+            if (previewImg) {
+                previewImg.src = buildAvatarURL();
+            }
+        }
+
+        function randomizeAvatar() {
+            // Arrays con opciones aleatorias
+            const hairColors = ['black', 'brown', 'blonde', 'red', 'gray', 'blue', 'green', 'purple', 'pink'];
+            const eyeColors = ['brown', 'blue', 'green', 'gray', 'amber'];
+            const accessories = ['', 'glasses', 'sunglasses', 'mustache', 'beard', 'earring', 'hat', 'mask'];
+            const clothing = ['', 'blazer', 'hoodie', 'sweater', 'collared', 'tank-top', 'dress-shirt'];
+            const backgrounds = ['', 'b6e3f4', 'c0aede', 'ffd5dc', 'ffdfbf', 'd1d4f9', 'd8d2db', 'e8dff7'];
+            const moods = ['', 'default', 'happy', 'surprised', 'sad', 'angry', 'confident', 'sleepy'];
+            const pets = ['', 'cat', 'dog', 'rabbit', 'parrot', 'fish', 'hamster', 'turtle'];
+            const effects = ['', 'sunset', 'dawn', 'cloudy', 'snow', 'rain', 'fog'];
+            const styles = ['adventurer', 'avataaars', 'open-peeps', 'personas', 'micah', 'croodles', 'miniavs'];
+            
+            // Seleccionar valores aleatorios
+            document.getElementById('hairColorSelect').value = hairColors[Math.floor(Math.random() * hairColors.length)];
+            document.getElementById('eyeColorSelect').value = eyeColors[Math.floor(Math.random() * eyeColors.length)];
+            document.getElementById('accessorySelect').value = accessories[Math.floor(Math.random() * accessories.length)];
+            document.getElementById('clothingSelect').value = clothing[Math.floor(Math.random() * clothing.length)];
+            document.getElementById('backgroundSelect').value = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+            document.getElementById('moodSelect').value = moods[Math.floor(Math.random() * moods.length)];
+            document.getElementById('petSelect').value = pets[Math.floor(Math.random() * pets.length)];
+            document.getElementById('effectSelect').value = effects[Math.floor(Math.random() * effects.length)];
+            document.getElementById('avatarStyleSelect').value = styles[Math.floor(Math.random() * styles.length)];
+            
+            // Actualizar el preview
+            updateAvatarPreview();
+            showNotification('¡Avatar aleatorio generado! 🎲', 'success');
+        }
+
+        function saveAvatarPreset() {
+            const preset = {
+                name: document.getElementById('avatarNameInput').value || 'Hero',
+                style: document.getElementId('avatarStyleSelect').value,
+                hairColor: document.getElementById('hairColorSelect').value,
+                eyeColor: document.getElementById('eyeColorSelect').value,
+                accessory: document.getElementById('accessorySelect').value,
+                clothing: document.getElementById('clothingSelect').value,
+                background: document.getElementById('backgroundSelect').value,
+                mood: document.getElementById('moodSelect').value,
+                pet: document.getElementById('petSelect').value,
+                effect: document.getElementById('effectSelect').value,
+                timestamp: Date.now()
+            };
+            
+            // Guardar preset en localStorage
+            const presets = JSON.parse(localStorage.getItem('rachamuffin_avatar_presets') || '[]');
+            presets.push(preset);
+            
+            // Mantener solo los últimos 10 presets
+            if (presets.length > 10) {
+                presets.shift();
+            }
+            
+            localStorage.setItem('rachamuffin_avatar_presets', JSON.stringify(presets));
+            showNotification('¡Preset de avatar guardado! ⭐', 'success');
+        }
+
+        function loadAvatarPreset() {
+            const presets = JSON.parse(localStorage.getItem('rachamuffin_avatar_presets') || '[]');
+            
+            if (presets.length === 0) {
+                showNotification('No hay presets guardados', 'warning');
+                return;
+            }
+            
+            // Mostrar lista de presets para seleccionar
+            const presetNames = presets.map((preset, index) => `${index + 1}. ${preset.name}`).join('\n');
+            const choice = prompt(`Selecciona un preset:\n${presetNames}\n\nEscribe el número:`);
+            
+            const presetIndex = parseInt(choice) - 1;
+            if (presetIndex >= 0 && presetIndex < presets.length) {
+                const preset = presets[presetIndex];
+                
+                // Cargar preset
+                document.getElementById('avatarNameInput').value = preset.name;
+                document.getElementById('avatarStyleSelect').value = preset.style;
+                document.getElementById('hairColorSelect').value = preset.hairColor;
+                document.getElementById('eyeColorSelect').value = preset.eyeColor;
+                document.getElementById('accessorySelect').value = preset.accessory;
+                document.getElementById('clothingSelect').value = preset.clothing;
+                document.getElementById('backgroundSelect').value = preset.background;
+                document.getElementById('moodSelect').value = preset.mood;
+                document.getElementById('petSelect').value = preset.pet;
+                document.getElementById('effectSelect').value = preset.effect;
+                
+                updateAvatarPreview();
+                showNotification(`¡Preset "${preset.name}" cargado! 📁`, 'success');
+            } else {
+                showNotification('Selección inválida', 'warning');
+            }
         }
 
         function saveUserConfig() {
@@ -1502,11 +1862,22 @@
             const avatarName = document.getElementById('avatarNameInput').value.trim() || 'Hero';
             const avatarStyle = document.getElementById('avatarStyleSelect').value;
 
+            // Actualizar datos del usuario con personalización avanzada
             currentUser.streakType = streakType;
             currentUser.customStreak = customStreak;
             currentUser.avatarName = avatarName;
             currentUser.avatarStyle = avatarStyle;
             currentUser.avatarSeed = avatarName;
+            
+            // Guardar opciones de personalización avanzada
+            currentUser.hairColor = document.getElementById('hairColorSelect').value;
+            currentUser.eyeColor = document.getElementById('eyeColorSelect').value;
+            currentUser.accessory = document.getElementById('accessorySelect').value;
+            currentUser.clothing = document.getElementById('clothingSelect').value;
+            currentUser.background = document.getElementById('backgroundSelect').value;
+            currentUser.mood = document.getElementById('moodSelect').value;
+            currentUser.pet = document.getElementById('petSelect').value;
+            currentUser.effect = document.getElementById('effectSelect').value;
 
             const users = JSON.parse(localStorage.getItem('rachamuffin_users') || '{}');
             const username = Object.keys(users).find(key => users[key] === currentUser || users[key].password === currentUser.password);
@@ -1527,7 +1898,7 @@
 
         function updateMainAvatar() {
             if (currentUser && currentUser.avatarStyle && currentUser.avatarSeed) {
-                avatarEl.src = `https://api.dicebear.com/7.x/${currentUser.avatarStyle}/svg?seed=${encodeURIComponent(currentUser.avatarSeed)}`;
+                avatarEl.src = buildAvatarURL();
             }
         }
 
