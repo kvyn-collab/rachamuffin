@@ -708,6 +708,35 @@
             box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
         }
 
+        /* Botón de personalización de avatar */
+        .avatar-btn {
+            background: linear-gradient(145deg, var(--cyan), #0891b2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+            animation: buttonSlideIn 1s ease-out 1.5s both;
+            will-change: transform, box-shadow;
+            touch-action: manipulation;
+        }
+
+        .avatar-btn:hover {
+            transform: translate3d(0, -2px, 0);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+        }
+
+        .avatar-btn:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
         .config-btn:focus-visible {
             outline: 2px solid var(--cyan);
             outline-offset: 2px;
@@ -1227,6 +1256,7 @@
 
         <button class="reset-btn" onclick="resetGame()">Reiniciar Prueba (Debug)</button>
         <button class="config-btn" onclick="openConfigModal()">⚙️ Configurar Perfil</button>
+        <button class="avatar-btn" onclick="openAvatarModal()">🎨 Personalizar Avatar</button>
     </div>
 
     <!-- Modal de Configuración/Login -->
@@ -1284,153 +1314,165 @@
                     <input type="text" id="customStreakText" placeholder="Describe tu racha personalizada" aria-label="Descripción de racha personalizada">
                 </div>
 
-                <h3>🦸 Avatar Personalizado</h3>
-                <div class="avatar-customization">
-                    <div class="avatar-preview">
-                        <img id="customAvatarPreview" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Hero" alt="Preview del avatar personalizado" loading="lazy">
-                    </div>
-                    <div class="avatar-options">
-                        <label for="avatarNameInput">Nombre del Avatar:</label>
-                        <input type="text" id="avatarNameInput" placeholder="Nombre" aria-label="Nombre del avatar">
-                        
-                        <label for="avatarStyleSelect">Estilo Base:</label>
-                        <select id="avatarStyleSelect" aria-label="Estilo del avatar">
-                            <option value="adventurer">Aventurero</option>
-                            <option value="avataaars">Avataaars</option>
-                            <option value="open-peeps">Personas Abiertas</option>
-                            <option value="personas">Personas</option>
-                            <option value="micah">Micah</option>
-                            <option value="croodles">Croodles</option>
-                            <option value="miniavs">Mini Avs</option>
-                        </select>
-
-                        <!-- Sección de Personalización Avanzada -->
-                        <div class="advanced-customization">
-                            <h4>🎨 Personalización Avanzada</h4>
-                            
-                            <div class="customization-grid">
-                                <div class="custom-group">
-                                    <label for="hairColorSelect">Color de Cabello:</label>
-                                    <select id="hairColorSelect" aria-label="Color de cabello">
-                                        <option value="">Por Defecto</option>
-                                        <option value="black">Negro</option>
-                                        <option value="brown">Castaño</option>
-                                        <option value="blonde">Rubio</option>
-                                        <option value="red">Pelirrojo</option>
-                                        <option value="gray">Gris</option>
-                                        <option value="blue">Azul</option>
-                                        <option value="green">Verde</option>
-                                        <option value="purple">Morado</option>
-                                        <option value="pink">Rosa</option>
-                                    </select>
-                                </div>
-
-                                <div class="custom-group">
-                                    <label for="eyeColorSelect">Color de Ojos:</label>
-                                    <select id="eyeColorSelect" aria-label="Color de ojos">
-                                        <option value="">Por Defecto</option>
-                                        <option value="brown">Marrones</option>
-                                        <option value="blue">Azules</option>
-                                        <option value="green">Verdes</option>
-                                        <option value="gray">Grises</option>
-                                        <option value="amber">Ámbar</option>
-                                    </select>
-                                </div>
-
-                                <div class="custom-group">
-                                    <label for="accessorySelect">Accesorios:</label>
-                                    <select id="accessorySelect" aria-label="Accesorios">
-                                        <option value="">Ninguno</option>
-                                        <option value="glasses">Gafas</option>
-                                        <option value="sunglasses">Gafas de Sol</option>
-                                        <option value="mustache">Bigote</option>
-                                        <option value="beard">Barba</option>
-                                        <option value="earring">Aretes</option>
-                                        <option value="hat">Sombrero</option>
-                                        <option value="mask">Máscara</option>
-                                    </select>
-                                </div>
-
-                                <div class="custom-group">
-                                    <label for="clothingSelect">Ropa:</label>
-                                    <select id="clothingSelect" aria-label="Estilo de ropa">
-                                        <option value="">Por Defecto</option>
-                                        <option value="blazer">Blazer</option>
-                                        <option value="hoodie">Sudadera</option>
-                                        <option value="sweater">Suéter</option>
-                                        <option value="collared">Camisa</option>
-                                        <option value="tank-top">Franela</option>
-                                        <option value="dress-shirt">Camisa Formal</option>
-                                    </select>
-                                </div>
-
-                                <div class="custom-group">
-                                    <label for="backgroundSelect">Fondo:</label>
-                                    <select id="backgroundSelect" aria-label="Color de fondo">
-                                        <option value="">Transparente</option>
-                                        <option value="b6e3f4">Azul Cielo</option>
-                                        <option value="c0aede">Púrpura Suave</option>
-                                        <option value="ffd5dc">Rosa Pastel</option>
-                                        <option value="ffdfbf">Amarillo Suave</option>
-                                        <option value="d1d4f9">Lavanda</option>
-                                        <option value="d8d2db">Gris Suave</option>
-                                        <option value="e8dff7">Azul Muy Suave</option>
-                                    </select>
-                                </div>
-
-                                <div class="custom-group">
-                                    <label for="moodSelect">Expresión:</label>
-                                    <select id="moodSelect" aria-label="Expresión facial">
-                                        <option value="">Por Defecto</option>
-                                        <option value="default">Neutral</option>
-                                        <option value="happy">Feliz</option>
-                                        <option value="surprised">Sorprendido</option>
-                                        <option value="sad">Triste</option>
-                                        <option value="angry">Enojado</option>
-                                        <option value="confident">Confiado</option>
-                                        <option value="sleepy">Somnoliento</option>
-                                    </select>
-                                </div>
-
-                                <div class="custom-group">
-                                    <label for="petSelect">Compañero:</label>
-                                    <select id="petSelect" aria-label="Mascota o compañero">
-                                        <option value="">Ninguno</option>
-                                        <option value="cat">Gato</option>
-                                        <option value="dog">Perro</option>
-                                        <option value="rabbit">Conejo</option>
-                                        <option value="parrot">Loro</option>
-                                        <option value="fish">Pez</option>
-                                        <option value="hamster">Hámster</option>
-                                        <option value="turtle">Tortuga</option>
-                                    </select>
-                                </div>
-
-                                <div class="custom-group">
-                                    <label for="effectSelect">Efectos Especiales:</label>
-                                    <select id="effectSelect" aria-label="Efectos especiales">
-                                        <option value="">Ninguno</option>
-                                        <option value="sunset">Atardecer</option>
-                                        <option value="dawn">Amanecer</option>
-                                        <option value="cloudy">Nublado</option>
-                                        <option value="snow">Nevada</option>
-                                        <option value="rain">Lluvia</option>
-                                        <option value="fog">Niebla</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button onclick="updateAvatarPreview()">🔄 Actualizar Preview</button>
-                        <button onclick="randomizeAvatar()">🎲 Avatar Aleatorio</button>
-                        <button onclick="saveAvatarPreset()">⭐ Guardar Preset</button>
-                        <button onclick="loadAvatarPreset()">📁 Cargar Preset</button>
-                    </div>
-                </div>
-
                 <div class="button-group">
                     <button onclick="saveUserConfig()">💾 Guardar Configuración</button>
                     <button onclick="logoutUser()" class="secondary">🚪 Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Personalización de Avatar -->
+    <div id="avatarModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAvatarModal()" aria-label="Cerrar modal">&times;</span>
+            <h2>🎨 Personalización de Avatar</h2>
+            
+            <div class="avatar-customization">
+                <div class="avatar-preview">
+                    <img id="avatarPreview" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Hero" alt="Preview del avatar personalizado" loading="lazy">
+                </div>
+                <div class="avatar-options">
+                    <label for="avatarNameInput">Nombre del Avatar:</label>
+                    <input type="text" id="avatarNameInput" placeholder="Nombre" aria-label="Nombre del avatar">
+                    
+                    <label for="avatarStyleSelect">Estilo Base:</label>
+                    <select id="avatarStyleSelect" aria-label="Estilo del avatar">
+                        <option value="adventurer">Aventurero</option>
+                        <option value="avataaars">Avataaars</option>
+                        <option value="open-peeps">Personas Abiertas</option>
+                        <option value="personas">Personas</option>
+                        <option value="micah">Micah</option>
+                        <option value="croodles">Croodles</option>
+                        <option value="miniavs">Mini Avs</option>
+                    </select>
+
+                    <!-- Sección de Personalización Avanzada -->
+                    <div class="advanced-customization">
+                        <h4>🎨 Personalización Avanzada</h4>
+                        
+                        <div class="customization-grid">
+                            <div class="custom-group">
+                                <label for="hairColorSelect">Color de Cabello:</label>
+                                <select id="hairColorSelect" aria-label="Color de cabello">
+                                    <option value="">Por Defecto</option>
+                                    <option value="black">Negro</option>
+                                    <option value="brown">Castaño</option>
+                                    <option value="blonde">Rubio</option>
+                                    <option value="red">Pelirrojo</option>
+                                    <option value="gray">Gris</option>
+                                    <option value="blue">Azul</option>
+                                    <option value="green">Verde</option>
+                                    <option value="purple">Morado</option>
+                                    <option value="pink">Rosa</option>
+                                </select>
+                            </div>
+
+                            <div class="custom-group">
+                                <label for="eyeColorSelect">Color de Ojos:</label>
+                                <select id="eyeColorSelect" aria-label="Color de ojos">
+                                    <option value="">Por Defecto</option>
+                                    <option value="brown">Marrones</option>
+                                    <option value="blue">Azules</option>
+                                    <option value="green">Verdes</option>
+                                    <option value="gray">Grises</option>
+                                    <option value="amber">Ámbar</option>
+                                </select>
+                            </div>
+
+                            <div class="custom-group">
+                                <label for="accessorySelect">Accesorios:</label>
+                                <select id="accessorySelect" aria-label="Accesorios">
+                                    <option value="">Ninguno</option>
+                                    <option value="glasses">Gafas</option>
+                                    <option value="sunglasses">Gafas de Sol</option>
+                                    <option value="mustache">Bigote</option>
+                                    <option value="beard">Barba</option>
+                                    <option value="earring">Aretes</option>
+                                    <option value="hat">Sombrero</option>
+                                    <option value="mask">Máscara</option>
+                                </select>
+                            </div>
+
+                            <div class="custom-group">
+                                <label for="clothingSelect">Ropa:</label>
+                                <select id="clothingSelect" aria-label="Estilo de ropa">
+                                    <option value="">Por Defecto</option>
+                                    <option value="blazer">Blazer</option>
+                                    <option value="hoodie">Sudadera</option>
+                                    <option value="sweater">Suéter</option>
+                                    <option value="collared">Camisa</option>
+                                    <option value="tank-top">Franela</option>
+                                    <option value="dress-shirt">Camisa Formal</option>
+                                </select>
+                            </div>
+
+                            <div class="custom-group">
+                                <label for="backgroundSelect">Fondo:</label>
+                                <select id="backgroundSelect" aria-label="Color de fondo">
+                                    <option value="">Transparente</option>
+                                    <option value="b6e3f4">Azul Cielo</option>
+                                    <option value="c0aede">Púrpura Suave</option>
+                                    <option value="ffd5dc">Rosa Pastel</option>
+                                    <option value="ffdfbf">Amarillo Suave</option>
+                                    <option value="d1d4f9">Lavanda</option>
+                                    <option value="d8d2db">Gris Suave</option>
+                                    <option value="e8dff7">Azul Muy Suave</option>
+                                </select>
+                            </div>
+
+                            <div class="custom-group">
+                                <label for="moodSelect">Expresión:</label>
+                                <select id="moodSelect" aria-label="Expresión facial">
+                                    <option value="">Por Defecto</option>
+                                    <option value="default">Neutral</option>
+                                    <option value="happy">Feliz</option>
+                                    <option value="surprised">Sorprendido</option>
+                                    <option value="sad">Triste</option>
+                                    <option value="angry">Enojado</option>
+                                    <option value="confident">Confiado</option>
+                                    <option value="sleepy">Somnoliento</option>
+                                </select>
+                            </div>
+
+                            <div class="custom-group">
+                                <label for="petSelect">Compañero:</label>
+                                <select id="petSelect" aria-label="Mascota o compañero">
+                                    <option value="">Ninguno</option>
+                                    <option value="cat">Gato</option>
+                                    <option value="dog">Perro</option>
+                                    <option value="rabbit">Conejo</option>
+                                    <option value="parrot">Loro</option>
+                                    <option value="fish">Pez</option>
+                                    <option value="hamster">Hámster</option>
+                                    <option value="turtle">Tortuga</option>
+                                </select>
+                            </div>
+
+                            <div class="custom-group">
+                                <label for="effectSelect">Efectos Especiales:</label>
+                                <select id="effectSelect" aria-label="Efectos especiales">
+                                    <option value="">Ninguno</option>
+                                    <option value="sunset">Atardecer</option>
+                                    <option value="dawn">Amanecer</option>
+                                    <option value="cloudy">Nublado</option>
+                                    <option value="snow">Nevada</option>
+                                    <option value="rain">Lluvia</option>
+                                    <option value="fog">Niebla</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="updateAvatarPreview()">🔄 Actualizar Preview</button>
+                    <button onclick="randomizeAvatar()">🎲 Avatar Aleatorio</button>
+                    <button onclick="saveAvatarPreset()">⭐ Guardar Preset</button>
+                    <button onclick="loadAvatarPreset()">📁 Cargar Preset</button>
+                    
+                    <div class="button-group">
+                        <button onclick="saveAvatarChanges()">💾 Aplicar Cambios</button>
+                        <button onclick="closeAvatarModal()" class="secondary">❌ Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1773,6 +1815,7 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closeConfigModal();
+                    closeAvatarModal();
                 }
             });
 
@@ -1826,12 +1869,34 @@
         function openConfigModal() {
             document.getElementById('configModal').style.display = 'block';
             checkCurrentUser();
+            
+            // Si ya está logueado, mostrar la configuración directamente
+            if (currentUser) {
+                showUserConfig();
+            }
+            
             document.body.style.overflow = 'hidden'; // Prevenir scroll del body
         }
 
         function closeConfigModal() {
             document.getElementById('configModal').style.display = 'none';
             document.body.style.overflow = ''; // Restaurar scroll
+        }
+
+        function openAvatarModal() {
+            if (!currentUser) {
+                showNotification('Debes iniciar sesión primero', 'warning');
+                return;
+            }
+            
+            document.getElementById('avatarModal').style.display = 'block';
+            loadAvatarConfig();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAvatarModal() {
+            document.getElementById('avatarModal').style.display = 'none';
+            document.body.style.overflow = '';
         }
 
         function registerUser() {
@@ -1933,6 +1998,10 @@
                 document.getElementById('customStreakInput').style.display = 'block';
                 document.getElementById('customStreakText').value = currentUser.customStreak || '';
             }
+        }
+
+        function loadAvatarConfig() {
+            if (!currentUser) return;
 
             // Cargar datos del avatar
             document.getElementById('avatarNameInput').value = currentUser.avatarName || 'Hero';
@@ -1986,7 +2055,7 @@
         }
 
         function updateAvatarPreview() {
-            const previewImg = document.getElementById('customAvatarPreview');
+            const previewImg = document.getElementById('avatarPreview');
             if (previewImg) {
                 previewImg.src = buildAvatarURL();
             }
@@ -2083,35 +2152,16 @@
             }
         }
 
-        function saveUserConfig() {
+        function saveAvatarChanges() {
             if (!currentUser) {
                 showNotification('Debes iniciar sesión primero', 'warning');
                 return;
-            }
-
-            const selectedStreakType = document.querySelector('input[name="streakType"]:checked');
-            if (!selectedStreakType) {
-                showNotification('Selecciona un tipo de racha', 'warning');
-                return;
-            }
-
-            const streakType = selectedStreakType.value;
-            let customStreak = '';
-
-            if (streakType === 'custom') {
-                customStreak = document.getElementById('customStreakText').value.trim();
-                if (!customStreak) {
-                    showNotification('Describe tu racha personalizada', 'warning');
-                    return;
-                }
             }
 
             const avatarName = document.getElementById('avatarNameInput').value.trim() || 'Hero';
             const avatarStyle = document.getElementById('avatarStyleSelect').value;
 
             // Actualizar datos del usuario con personalización avanzada
-            currentUser.streakType = streakType;
-            currentUser.customStreak = customStreak;
             currentUser.avatarName = avatarName;
             currentUser.avatarStyle = avatarStyle;
             currentUser.avatarSeed = avatarName;
@@ -2139,18 +2189,58 @@
                 localStorage.setItem('rachamuffin_currentUser', JSON.stringify(currentUser));
             }
 
-            if (streak === 0 && coins === 0) {
-                updateMainAvatar();
-            }
-
-            showNotification('¡Configuración guardada exitosamente!', 'success');
-            closeConfigModal();
+            updateMainAvatar();
+            showNotification('¡Avatar actualizado exitosamente!', 'success');
+            closeAvatarModal();
         }
 
         function updateMainAvatar() {
             if (currentUser && currentUser.avatarStyle && currentUser.avatarSeed) {
                 avatarEl.src = buildAvatarURL();
             }
+        }
+
+        function saveUserConfig() {
+            if (!currentUser) {
+                showNotification('Debes iniciar sesión primero', 'warning');
+                return;
+            }
+
+            const selectedStreakType = document.querySelector('input[name="streakType"]:checked');
+            if (!selectedStreakType) {
+                showNotification('Selecciona un tipo de racha', 'warning');
+                return;
+            }
+
+            const streakType = selectedStreakType.value;
+            let customStreak = '';
+
+            if (streakType === 'custom') {
+                customStreak = document.getElementById('customStreakText').value.trim();
+                if (!customStreak) {
+                    showNotification('Describe tu racha personalizada', 'warning');
+                    return;
+                }
+            }
+
+            // Actualizar datos del usuario
+            currentUser.streakType = streakType;
+            currentUser.customStreak = customStreak;
+
+            const users = JSON.parse(localStorage.getItem('rachamuffin_users') || '{}');
+            const username = Object.keys(users).find(key => 
+                users[key].avatarName === currentUser.avatarName && 
+                users[key].streakType === currentUser.streakType
+            );
+            
+            if (username) {
+                users[username] = currentUser;
+                localStorage.setItem('rachamuffin_users', JSON.stringify(users));
+                localStorage.setItem('rachamuffin_currentUser', JSON.stringify(currentUser));
+            }
+
+            showNotification('¡Configuración guardada exitosamente!', 'success');
+            closeConfigModal();
         }
 
         function logoutUser() {
@@ -2184,9 +2274,13 @@
 
         // Cerrar modal al hacer click fuera de él
         window.onclick = function(event) {
-            const modal = document.getElementById('configModal');
-            if (event.target === modal) {
+            const configModal = document.getElementById('configModal');
+            const avatarModal = document.getElementById('avatarModal');
+            
+            if (event.target === configModal) {
                 closeConfigModal();
+            } else if (event.target === avatarModal) {
+                closeAvatarModal();
             }
         }
     </script>
