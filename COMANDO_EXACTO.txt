@@ -1,0 +1,10 @@
+COMANDO EXACTO PARA CREAR EL ARCHIVO:
+
+sudo nano /var/www/proyecto_imagenes/pedidos.php
+
+(3 "w" en www, sin /html/ en medio)
+
+
+
+
+

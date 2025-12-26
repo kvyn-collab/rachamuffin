@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff4757">
+    <meta name="description" content="Rachamuffin - Tu compañero para crear hábitos positivos">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Rachamuffin">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    
+    <!-- Preload de fuentes críticas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <title>Rachamuffin - Hero Streak</title>
+    
+    <style>
+        /* Variables CSS para temas */
+        :root {
+            --primary: #ff4757;
+            --primary-light: #ff6b7a;
+            --gold: #ffa502;
+            --gold-light: #ffb938;
+            --dark: #0a0a0a;
+            --dark-light: #1a1a1a;
+            --light: #ffffff;
+            --purple: #8b5cf6;
+            --cyan: #06b6d4;
+            --success: #2ed573;
+            --warning: #ffa502;
+            --error: #ff4757;
+            --info: #06b6d4;
+        }
+
+        /* Tema oscuro */
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+
+        /* Tema claro */
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+        }
+
+        /* Reset y base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Indicador de carga */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos principales optimizados */
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 1rem;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Responsive mejorado */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Animaciones optimizadas */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Botones mejorados */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0.5rem 0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Accesibilidad */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus visible para navegación por teclado */
+        .btn:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary: #0000ff;
+                --gold: #ffff00;
+                --bg-primary: #ffffff;
+                --bg-secondary: #f0f0f0;
+                --text-primary: #000000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla de carga -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Skip link para accesibilidad -->
+    <a href="#mainContent" class="sr-only">Saltar al contenido principal</a>
+
+    <!-- Contenido principal -->
+    <main id="mainContent" class="container">
+        <div id="appContent">
+            <!-- El contenido se carga dinámicamente -->
+            <h1>🦸 Rachamuffin</h1>
+            <p>Cargando aplicación...</p>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="js/app.js"></script>
+    
+    <!-- Service Worker para PWA -->
+    <script>
+        // Registrar Service Worker para funcionalidad offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('SW registrado:', registration);
+                    })
+                    .catch(error => {
+                        console.log('SW falló:', error);
+                    });
+            });
+        }
+
+        // Manejo de tema
+        function initTheme() {
+            const savedTheme = localStorage.getItem('rachamuffin_theme') || 
+                              (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        // Inicializar tema al cargar
+        initTheme();
+
+        // Ocultar pantalla de carga cuando la app esté lista
+        window.addEventListener('appReady', () => {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }
+            }, 1000);
+        });
+
+        // Detectar características del dispositivo
+        function detectDeviceFeatures() {
+            const features = {
+                touch: 'ontouchstart' in window,
+                mobile: window.innerWidth <= 768,
+                pwa: window.matchMedia('(display-mode: standalone)').matches,
+                webp: false
+            };
+
+            // Detectar soporte WebP
+            const canvas = document.createElement('canvas');
+            canvas.width = 1;
+            canvas.height = 1;
+            features.webp = canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+
+            // Guardar características para uso posterior
+            window.deviceFeatures = features;
+        }
+
+        detectDeviceFeatures();
+
+        // Manejo de instalación PWA
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Mostrar botón de instalación si es apropiado
+            if (window.deviceFeatures.mobile) {
+                showInstallBanner();
+            }
+        });
+
+        function showInstallBanner() {
+            // Crear banner de instalación
+            const banner = document.createElement('div');
+            banner.innerHTML = `
+                <div style="
+                    position: fixed;
+                    bottom: 20px;
+                    left: 20px;
+                    right: 20px;
+                    background: linear-gradient(45deg, var(--primary), var(--gold));
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                    z-index: 1000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                ">
+                    <span>📱 ¡Instala Rachamuffin para una mejor experiencia!</span>
+                    <button onclick="installApp()" style="
+                        background: white;
+                        color: var(--primary);
+                        border: none;
+                        padding: 0.5rem 1rem;
+                        border-radius: 5px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">Instalar</button>
+                </div>
+            `;
+            document.body.appendChild(banner);
+
+            // Auto-ocultar después de 10 segundos
+            setTimeout(() => {
+                if (banner.parentNode) {
+                    banner.parentNode.removeChild(banner);
+                }
+            }, 10000);
+        }
+
+        async function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    console.log('PWA instalada');
+                }
+                
+                deferredPrompt = null;
+            }
+        }
+
+        // Hacer función global
+        window.installApp = installApp;
+
+        // Analytics básico (opcional)
+        function trackEvent(eventName, properties = {}) {
+            if ('ga' in window) {
+                window.ga('event', eventName, properties);
+            }
+            console.log('Event:', eventName, properties);
+        }
+
+        // Rastrear eventos importantes
+        window.addEventListener('appReady', () => {
+            trackEvent('app_loaded', {
+                timestamp: new Date().toISOString(),
+                user_agent: navigator.userAgent,
+                screen_resolution: `${screen.width}x${screen.height}`,
+                viewport: `${window.innerWidth}x${window.innerHeight}`
+            });
+        });
+
+        // Manejo de errores global
+        window.addEventListener('error', (e) => {
+            console.error('Error global:', e.error);
+            trackEvent('javascript_error', {
+                message: e.message,
+                filename: e.filename,
+                lineno: e.lineno,
+                colno: e.colno
+            });
+        });
+
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    trackEvent('performance_metrics', {
+                        load_time: perfData.loadEventEnd - perfData.loadEventStart,
+                        dom_content_loaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                        first_paint: performance.getEntriesByType('paint').find(entry => entry.name === 'first-paint')?.startTime || 0
+                    });
+                }, 0);
+            });
+        }
+    </script>
+</body>
+</html>
