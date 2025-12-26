@@ -8,3 +8,4 @@ sudo nano /var/www/proyecto_imagenes/pedidos.php
 
 
 
+
